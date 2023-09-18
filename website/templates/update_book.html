@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Book</title>
+    <!-- Định nghĩa CSS hoặc sử dụng các lớp CSS có sẵn từ thư viện -->
+    <!-- Ví dụ sử dụng Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="book_title">Book Title:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="book_title"
+            name="book_title"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="author">Author:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="author"
+            name="author"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="cover">Cover (Image):</label>
+          <input
+            type="file"
+            class="form-control"
+            id="cover"
+            name="cover"
+            accept="image/*" 
+          />
+        </div>
+        <div class="form-group">
+          <label for="content">Content (PDF):</label>
+          <input
+            type="file"
+            class="form-control"
+            id="content"
+            name="content"
+            accept=".pdf" 
+          />
+        </div>
+        <input type="submit" value="Update">
+    </form>
+    <a href="/">Back to Home</a>
+</body>
+</html>
