@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1 align="center">Notes</h1>
+
+<!-- Form to create a new book -->
+<form method="POST" action="/" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="book_title">Book Title:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="book_title"
+      name="book_title"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="author">Author:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="author"
+      name="author"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="cover">Cover (Image):</label>
+    <input
+      type="file"
+      class="form-control"
+      id="cover"
+      name="cover"
+      accept="image/*" 
+    />
+  </div>
+  <div class="form-group">
+    <label for="content">Content (PDF):</label>
+    <input
+      type="file"
+      class="form-control"
+      id="content"
+      name="content"
+      accept=".pdf" 
+    />
+  </div>
+  <button type="submit" name="create_book" class="btn btn-primary">
+    Create Book
+  </button>
+</form>
+
+<!-- Form to create a new note -->
+<form method="POST" action="/">
+  <div class="form-group">
+    <label for="book_id">Select a Book:</label>
+    <select class="form-control" id="book_id" name="book_id" required>
+      {% for book in books %}
+      <option value="{{ book.id }}">{{ book.title }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="note">Add Note:</label>
+    <textarea
+      class="form-control"
+      id="note"
+      name="note"
+      rows="3"
+      required
+    ></textarea>
+  </div>
+  <button type="submit" name="create_note" class="btn btn-primary">
+    Add Note
+  </button>
+</form>
+
+<h2>Books and Notes:</h2>
+<ul>
+  {% for book in books %}
+  <li>
+    <h3>Book Title: {{ book.title }}</h3>
+    <h4>Author: {{ book.author }}</h4>
+    <img src="{{ url_for('static', filename='media/cover/' + book.cover) }}" alt="Book Cover" width="200">
+    <a href="/view_content/{{ book.id }}">View Content</a> <!-- Liên kết đến trang xem nội dung PDF -->
+    <a href="/delete_book/{{ book.id }}">Delete</a>
+    <a href="/update_book/{{ book.id }}">Update</a>
+
+    <h5>Notes:</h5>
+    <ul>
+      {% for note in book.notes %}
+      <li>
+        <p>{{ note.data }} [<strong>Comment by:</strong> {{ note.users.email }}]</p>
+    </li>
+    
+      <a href="/delete/{{ note.id }}">Delete</a>
+      <br />
+      <a href="/update/{{ note.id }}">Update</a>
+      <br />
+   
+      {% endfor %}
+    </ul>
+  </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
